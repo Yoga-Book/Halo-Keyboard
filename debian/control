@@ -7,6 +7,7 @@ Build-Depends:
  debhelper-compat (= 13),
  pkgconf,
  systemd-dev,
+ udev,
 Standards-Version: 4.7.2
 Rules-Requires-Root: no
 Homepage: https://github.com/Yoga-Book/Halo-Keyboard
