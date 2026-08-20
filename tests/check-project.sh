@@ -6,18 +6,21 @@ set -Eeuo pipefail
 root=${1:?project root is required}
 
 required_files=(
-	60-halo-keyboard.rules
-	61-halo-keyboard.hwdb
+	udev/60-halo-keyboard.rules
+	udev/61-halo-keyboard.hwdb
 	ATTRIBUTION.md
 	LICENSE
 	README.md
-	halo-keyboard.service
-	hardware.csv
-	touchpad.csv
+	systemd/halo-keyboard.service
+	config/hardware.csv
+	config/touchpad.csv
+	include/halo_keyboard/hardware_config.h
+	src/hardware_config.cc
 	debian/control
 	debian/copyright
 	debian/halo-keyboard.postinst
 	debian/source/options
+	tests/check-handler-config.sh
 )
 
 for file in "${required_files[@]}"; do
@@ -27,12 +30,19 @@ for file in "${required_files[@]}"; do
 	}
 done
 
-grep -Fq 'ExecStart=/usr/sbin/halo-keyboard-handler' "$root/halo-keyboard.service"
-grep -Fq 'WorkingDirectory=/etc/halo-keyboard' "$root/halo-keyboard.service"
-grep -Fq 'SYMLINK+="halo_keyboard"' "$root/60-halo-keyboard.rules"
-grep -Fq 'ENV{SYSTEMD_WANTS}+="halo-keyboard.service"' "$root/60-halo-keyboard.rules"
+grep -Fq 'ExecStart=/usr/sbin/halo-keyboard-handler' \
+	"$root/systemd/halo-keyboard.service"
+grep -Fq -- '--config-directory /etc/halo-keyboard' \
+	"$root/systemd/halo-keyboard.service"
+grep -Fxq 'CapabilityBoundingSet=' "$root/systemd/halo-keyboard.service"
+grep -Fxq 'ProtectKernelTunables=true' "$root/systemd/halo-keyboard.service"
+grep -Fxq 'RestrictNamespaces=true' "$root/systemd/halo-keyboard.service"
+grep -Fq 'SYMLINK+="halo_keyboard"' "$root/udev/60-halo-keyboard.rules"
+grep -Fq 'ENV{SYSTEMD_WANTS}+="halo-keyboard.service"' \
+	"$root/udev/60-halo-keyboard.rules"
 grep -Fq 'Package: halo-keyboard' "$root/debian/control"
 grep -Eq '^ udev,$' "$root/debian/control"
+grep -Eq '^ systemd,$' "$root/debian/control"
 grep -Fq 'Provides: touch-keyboard' "$root/debian/control"
 grep -Fq 'Conflicts: touch-keyboard' "$root/debian/control"
 grep -Fq 'Replaces: touch-keyboard' "$root/debian/control"
@@ -44,7 +54,7 @@ if grep -R -n -E '/etc/touch_keyboard|touch-keyboard-handler\.service|/dev/touch
 		"$root" \
 		--exclude-dir=.git \
 		--exclude-dir=.debhelper \
-		--exclude-dir=build \
+		--exclude-dir='build*' \
 		--exclude-dir='obj-*' \
 		--exclude-dir=halo-keyboard \
 		--exclude=README.md \

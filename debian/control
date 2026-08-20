@@ -17,6 +17,7 @@ Vcs-Git: https://github.com/Yoga-Book/Halo-Keyboard.git
 Package: halo-keyboard
 Architecture: any
 Depends:
+ systemd,
  udev,
  ${misc:Depends},
  ${shlibs:Depends},

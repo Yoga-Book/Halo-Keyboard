@@ -19,7 +19,7 @@ deb:
 
 source:
 	git archive --format=tar --prefix=halo-keyboard-$(PACKAGE_VERSION)/ HEAD -- . ':(exclude)debian' | xz -T0 > $(ORIG_TARBALL)
-	dpkg-buildpackage --build=source --no-sign
+	dpkg-buildpackage --build=source --no-sign --no-check-builddeps
 
 clean:
 	rm -rf build

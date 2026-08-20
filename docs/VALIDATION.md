@@ -11,6 +11,21 @@ make source
 lintian --profile debian ../halo-keyboard_1.0.0-1_*.changes
 ```
 
+Run the strict sanitizer build:
+
+```bash
+cmake -S . -B build-sanitize -G Ninja \
+  -DCMAKE_BUILD_TYPE=Debug \
+  -DBUILD_TESTING=ON \
+  -DHALO_KEYBOARD_ENABLE_SANITIZERS=ON \
+  -DHALO_KEYBOARD_WARNINGS_AS_ERRORS=ON
+cmake --build build-sanitize --parallel
+ctest --test-dir build-sanitize --output-on-failure
+shellcheck tests/*.sh debian/halo-keyboard.postinst \
+  debian/halo-keyboard.postrm debian/tests/smoke
+git diff --check
+```
+
 Inspect the package:
 
 ```bash

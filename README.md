@@ -34,6 +34,11 @@ Build and test the program:
 make test
 ```
 
+The codebase follows a conventional split: public headers are under
+`include/halo_keyboard/`, implementation files under `src/`, runtime data under
+`config/`, and integration files under `udev/` and `systemd/`. Third-party
+sources remain isolated in `third_party/` with their original attribution.
+
 Build the Debian package:
 
 ```bash
@@ -66,6 +71,11 @@ Configuration is stored in `/etc/halo-keyboard/`:
 - `layouts/`: supplied keyboard layouts;
 - `layout.csv`: active layout, created by the package installer.
 
+The packaged service passes this directory explicitly. For diagnostics or
+development, `halo-keyboard-handler --config-directory DIR` can read an
+alternate complete configuration without changing the process working
+directory.
+
 To select the PC-104 layout:
 
 ```bash
@@ -88,6 +98,10 @@ successful validation, obsolete configuration can be archived manually.
 Halo Keyboard owns keyboard-half input translation, haptics, and associated
 udev/hwdb integration. Kernel drivers, audio/UCM, sensors, display policy, and
 other Yoga Book platform services remain in their respective projects.
+
+The handler validates configuration before starting two supervised workers,
+one for the virtual keyboard and one for the virtual touchpad. If either worker
+fails, the service exits so systemd can restart the complete input stack.
 
 See [ATTRIBUTION.md](ATTRIBUTION.md) and [LICENSE](LICENSE) for provenance and
 licensing.

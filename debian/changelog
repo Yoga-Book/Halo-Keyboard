@@ -5,5 +5,11 @@ halo-keyboard (1.0.0-1) unstable; urgency=medium
   * Provide a migration path from the touch-keyboard package.
   * Add the physically validated YB1-X91L Wacom orientation quirk.
   * Add deterministic project, udev, and hwdb validation.
+  * Harden worker supervision, input resynchronization, and device lifetime.
+  * Add focused configuration, option, multitouch, and uinput tests.
+  * Decouple configuration lookup from the process working directory.
+  * Restrict the systemd service to its required device-facing privileges.
+  * Allow source-package generation without binary build dependencies.
+  * Declare the systemd runtime required by udev service activation.
 
  -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Thu, 20 Aug 2026 14:30:00 +0200

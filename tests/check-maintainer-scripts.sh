@@ -11,9 +11,9 @@ cleanup() {
 }
 trap cleanup EXIT
 
-install -D -m 0644 "$project_root/61-halo-keyboard.hwdb" \
+install -D -m 0644 "$project_root/udev/61-halo-keyboard.hwdb" \
 	"$test_root/usr/lib/udev/hwdb.d/61-halo-keyboard.hwdb"
-install -D -m 0644 "$project_root/layouts/YB1-X9x-pc105.csv" \
+install -D -m 0644 "$project_root/config/layouts/YB1-X9x-pc105.csv" \
 	"$test_root/etc/halo-keyboard/layouts/YB1-X9x-pc105.csv"
 
 mkdir -p "$test_root/etc/touch_keyboard"

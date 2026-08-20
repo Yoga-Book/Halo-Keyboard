@@ -10,6 +10,10 @@ make test
 dpkg-buildpackage --build=binary --no-sign
 ```
 
+For changes to event handling or device lifetime, also run the sanitizer and
+warnings-as-errors build documented in `docs/VALIDATION.md`, plus ShellCheck on
+the project and Debian scripts.
+
 Hardware quirks must match the narrowest proven device and DMI identity.
 Always test display touch and the accessibility keyboard when changing a pen or
 touch matrix. Do not broaden the YB1-X91L Wacom match without physical evidence

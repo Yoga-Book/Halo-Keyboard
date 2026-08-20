@@ -7,6 +7,7 @@ halo-keyboard-handler \- translate the Yoga Book Halo surface into keyboard and 
 .RB [ \-d ]
 .RB [ \-m " magnitude" ]
 .RB [ \-D " duration-ms" ]
+.RB [ \-c " directory" ]
 .SH DESCRIPTION
 .B halo-keyboard-handler
 reads multitouch events from
@@ -14,13 +15,14 @@ reads multitouch events from
 creates virtual keyboard and internal touchpad devices through uinput, and
 optionally sends force-feedback effects to the Yoga Book haptic actuators.
 .PP
-The systemd service runs with
-.B /etc/halo-keyboard
-as its working directory. Configuration is read from
+Configuration is read from
 .BR hardware.csv ,
 .BR touchpad.csv ,
 and
-.BR layout.csv .
+.BR layout.csv
+in
+.BR /etc/halo-keyboard
+unless another directory is selected explicitly.
 .SH OPTIONS
 .TP
 .B \-h
@@ -34,6 +36,12 @@ Set haptic feedback magnitude. The packaged service uses 1.0.
 .TP
 .BI \-D " duration-ms"
 Set haptic feedback duration in milliseconds. The packaged service uses 6.
+.TP
+.BI \-c " directory"
+.TQ
+.BI \-\-config-directory " directory"
+Read all configuration files from
+.IR directory .
 .SH FILES
 .TP
 .B /etc/halo-keyboard/
