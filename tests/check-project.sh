@@ -17,6 +17,7 @@ required_files=(
 	debian/control
 	debian/copyright
 	debian/halo-keyboard.postinst
+	debian/source/options
 )
 
 for file in "${required_files[@]}"; do
@@ -35,6 +36,8 @@ grep -Fq 'Provides: touch-keyboard' "$root/debian/control"
 grep -Fq 'Conflicts: touch-keyboard' "$root/debian/control"
 grep -Fq 'Replaces: touch-keyboard' "$root/debian/control"
 grep -Fq 'deccecb08889aa031664f5e22ec5c4c33fb6c41c' "$root/ATTRIBUTION.md"
+grep -Fxq '3.0 (quilt)' "$root/debian/source/format"
+grep -Fq 'extend-diff-ignore' "$root/debian/source/options"
 
 if grep -R -n -E '/etc/touch_keyboard|touch-keyboard-handler\.service|/dev/touch_keyboard' \
 		"$root" \
