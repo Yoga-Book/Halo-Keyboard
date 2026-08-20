@@ -1,0 +1,26 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  debian-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes \
+            build-essential cmake debhelper devscripts lintian pkgconf \
+            shellcheck systemd-dev
+      - name: Build and test
+        run: make test
+      - name: Build Debian package
+        run: dpkg-buildpackage --build=binary --no-sign
+      - name: Lint Debian package
+        run: lintian --profile debian ../halo-keyboard_*.changes

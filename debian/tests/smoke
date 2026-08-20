@@ -1,0 +1,11 @@
+#!/bin/sh
+set -eu
+
+halo-keyboard-handler -h
+test -x /usr/sbin/halo-keyboard-handler
+test -f /usr/lib/udev/rules.d/60-halo-keyboard.rules
+test -f /usr/lib/udev/hwdb.d/61-halo-keyboard.hwdb
+test -f /usr/lib/systemd/system/halo-keyboard.service
+test -f /etc/halo-keyboard/hardware.csv
+test -f /etc/halo-keyboard/touchpad.csv
+test -e /etc/halo-keyboard/layout.csv

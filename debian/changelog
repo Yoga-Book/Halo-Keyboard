@@ -1,0 +1,9 @@
+halo-keyboard (1.0.0-1) unstable; urgency=medium
+
+  * Establish the independent Yoga-Book Halo Keyboard project.
+  * Rename the handler, service, configuration, and udev integration.
+  * Provide a migration path from the touch-keyboard package.
+  * Add the physically validated YB1-X91L Wacom orientation quirk.
+  * Add deterministic project, udev, and hwdb validation.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Thu, 20 Aug 2026 14:30:00 +0200
