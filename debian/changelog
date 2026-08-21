@@ -1,3 +1,15 @@
+halo-keyboard (1.0.0-3) unstable; urgency=medium
+
+  * Wait for cold-boot udev events before opening the two haptic devices.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Fri, 21 Aug 2026 00:20:00 +0200
+
+halo-keyboard (1.0.0-2) unstable; urgency=medium
+
+  * Clamp restored Halo keyboard brightness to a usable 20 percent minimum.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Thu, 20 Aug 2026 23:55:00 +0200
+
 halo-keyboard (1.0.0-1) unstable; urgency=medium
 
   * Establish the independent Yoga-Book Halo Keyboard project.

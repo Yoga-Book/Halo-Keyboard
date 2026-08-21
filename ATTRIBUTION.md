@@ -15,4 +15,8 @@ in [LICENSE](LICENSE). The repository name, package integration, service,
 configuration paths, hardware database, migration logic, documentation, and
 tests belong to the Halo Keyboard project.
 
+The narrowly scoped keyboard-backlight clamp is derived from the equivalent
+rule in `yogabook-support`, copyright Yauhen Kharuzhy and distributed under
+GPL-2.0-or-later. It is kept in a separate, explicitly licensed rule file.
+
 The reference projects are prior work, not endorsement of this project.

@@ -14,6 +14,7 @@ The project and Debian package are both named `halo-keyboard`.
 - virtual internal touchpad and keyboard devices;
 - left and right DRV2604 haptic feedback;
 - YB1-X91L Wacom `056A:0169` pen orientation calibration;
+- a scoped 20% minimum when restoring the Halo keyboard backlight at boot;
 - automatic systemd activation through udev.
 
 The Wacom calibration is deliberately restricted to the YB1-X91L and the
@@ -54,7 +55,7 @@ make source
 ## Install
 
 ```bash
-sudo apt install ../halo-keyboard_1.0.0-1_amd64.deb
+sudo apt install ../halo-keyboard_1.0.0-3_amd64.deb
 sudo reboot
 ```
 
@@ -96,8 +97,9 @@ successful validation, obsolete configuration can be archived manually.
 ## Scope
 
 Halo Keyboard owns keyboard-half input translation, haptics, and associated
-udev/hwdb integration. Kernel drivers, audio/UCM, sensors, display policy, and
-other Yoga Book platform services remain in their respective projects.
+udev/hwdb integration, including the backlight of that physical keyboard.
+Kernel drivers, audio/UCM, sensors, display policy, and other Yoga Book
+platform services remain in their respective projects.
 
 The handler validates configuration before starting two supervised workers,
 one for the virtual keyboard and one for the virtual touchpad. If either worker

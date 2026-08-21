@@ -88,6 +88,7 @@ install(DIRECTORY config/layouts DESTINATION "${CMAKE_INSTALL_SYSCONFDIR}/halo-k
 install(FILES config/hardware.csv config/touchpad.csv
   DESTINATION "${CMAKE_INSTALL_SYSCONFDIR}/halo-keyboard")
 install(FILES udev/60-halo-keyboard.rules DESTINATION "${UDEV_DIR}/rules.d")
+install(FILES udev/60-halo-keyboard-backlight.rules DESTINATION "${UDEV_DIR}/rules.d")
 install(FILES udev/61-halo-keyboard.hwdb DESTINATION "${UDEV_DIR}/hwdb.d")
 install(FILES systemd/halo-keyboard.service DESTINATION "${SYSTEMD_SYSTEM_UNIT_DIR}")
 install(FILES docs/halo-keyboard-handler.8 DESTINATION "${CMAKE_INSTALL_MANDIR}/man8")

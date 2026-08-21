@@ -16,6 +16,8 @@ install -D -m 0644 "$root/udev/61-halo-keyboard.hwdb" \
 
 systemd-hwdb --root="$temporary_root" --strict update
 udevadm verify --no-style --no-summary "$root/udev/60-halo-keyboard.rules"
+udevadm verify --no-style --no-summary \
+	"$root/udev/60-halo-keyboard-backlight.rules"
 
 x91l_match=$(systemd-hwdb --root="$temporary_root" query \
 	'evdev:name:Wacom HID 169 Pen:dmi:bvnLENOVO:pnLenovoYB1-X91L:')

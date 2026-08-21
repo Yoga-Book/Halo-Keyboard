@@ -3,6 +3,7 @@ set -eu
 
 halo-keyboard-handler -h
 test -x /usr/sbin/halo-keyboard-handler
+test -f /usr/lib/udev/rules.d/60-halo-keyboard-backlight.rules
 test -f /usr/lib/udev/rules.d/60-halo-keyboard.rules
 test -f /usr/lib/udev/hwdb.d/61-halo-keyboard.hwdb
 test -f /usr/lib/systemd/system/halo-keyboard.service
@@ -11,6 +12,13 @@ test -f /etc/halo-keyboard/touchpad.csv
 test -e /etc/halo-keyboard/layout.csv
 
 udevadm verify --no-style --no-summary /usr/lib/udev/rules.d/60-halo-keyboard.rules
+udevadm verify --no-style --no-summary \
+    /usr/lib/udev/rules.d/60-halo-keyboard-backlight.rules
+
+grep -Fq 'KERNEL=="ybwmi::kbd_backlight"' \
+    /usr/lib/udev/rules.d/60-halo-keyboard-backlight.rules
+grep -Fq 'ENV{ID_BACKLIGHT_CLAMP}="20%%"' \
+    /usr/lib/udev/rules.d/60-halo-keyboard-backlight.rules
 
 x91l_match=$(systemd-hwdb query \
     'evdev:name:Wacom HID 169 Pen:dmi:bvnLENOVO:pnLenovoYB1-X91L:')

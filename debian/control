@@ -30,4 +30,5 @@ Description: Lenovo Yoga Book Halo keyboard and pen input integration
  feedback.
  .
  The package also installs narrowly matched udev and hardware-database entries,
- including the YB1-X91L Wacom pen orientation calibration.
+ including the YB1-X91L Wacom pen orientation calibration and a scoped minimum
+ brightness clamp for the Halo keyboard backlight.

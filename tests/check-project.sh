@@ -6,6 +6,7 @@ set -Eeuo pipefail
 root=${1:?project root is required}
 
 required_files=(
+	udev/60-halo-keyboard-backlight.rules
 	udev/60-halo-keyboard.rules
 	udev/61-halo-keyboard.hwdb
 	ATTRIBUTION.md
@@ -32,6 +33,8 @@ done
 
 grep -Fq 'ExecStart=/usr/sbin/halo-keyboard-handler' \
 	"$root/systemd/halo-keyboard.service"
+grep -Fxq 'ExecStartPre=-/usr/bin/udevadm settle --timeout=10' \
+	"$root/systemd/halo-keyboard.service"
 grep -Fq -- '--config-directory /etc/halo-keyboard' \
 	"$root/systemd/halo-keyboard.service"
 grep -Fxq 'CapabilityBoundingSet=' "$root/systemd/halo-keyboard.service"
@@ -40,6 +43,10 @@ grep -Fxq 'RestrictNamespaces=true' "$root/systemd/halo-keyboard.service"
 grep -Fq 'SYMLINK+="halo_keyboard"' "$root/udev/60-halo-keyboard.rules"
 grep -Fq 'ENV{SYSTEMD_WANTS}+="halo-keyboard.service"' \
 	"$root/udev/60-halo-keyboard.rules"
+grep -Fq 'KERNEL=="ybwmi::kbd_backlight"' \
+	"$root/udev/60-halo-keyboard-backlight.rules"
+grep -Fq 'ENV{ID_BACKLIGHT_CLAMP}="20%%"' \
+	"$root/udev/60-halo-keyboard-backlight.rules"
 grep -Fq 'Package: halo-keyboard' "$root/debian/control"
 grep -Eq '^ udev,$' "$root/debian/control"
 grep -Eq '^ systemd,$' "$root/debian/control"
