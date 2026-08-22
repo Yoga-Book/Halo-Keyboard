@@ -12,6 +12,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <system_error>
 #include <sys/wait.h>
 #include <unistd.h>
 #include <vector>
@@ -41,6 +42,14 @@ pid_t SpawnWorker(std::string_view name, const std::function<void()>& worker) {
     try {
       worker();
       LOG(ERROR) << name << " worker returned unexpectedly\n";
+    } catch (const std::system_error& error) {
+      if (error.code() == std::errc::no_such_device) {
+        LOG(INFO) << name
+                  << " worker stopped because the Halo surface entered pen mode\n";
+        std::cerr.flush();
+        _exit(EXIT_SUCCESS);
+      }
+      LOG(ERROR) << name << " worker failed: " << error.what() << "\n";
     } catch (const std::exception& error) {
       LOG(ERROR) << name << " worker failed: " << error.what() << "\n";
     } catch (...) {
@@ -73,6 +82,7 @@ void StopWorker(pid_t pid) {
 
 int Supervise(pid_t keyboard_pid, pid_t touchpad_pid) {
   int status = 0;
+  bool expected_stop = false;
   const pid_t exited_pid = WaitForWorker(&status);
   if (exited_pid < 0) {
     PLOG(ERROR) << "waitpid failed\n";
@@ -80,8 +90,14 @@ int Supervise(pid_t keyboard_pid, pid_t touchpad_pid) {
     StopWorker(touchpad_pid);
     return EXIT_FAILURE;
   } else if (WIFEXITED(status)) {
-    LOG(ERROR) << "worker " << exited_pid << " exited with status "
-               << WEXITSTATUS(status) << "\n";
+    expected_stop = WEXITSTATUS(status) == EXIT_SUCCESS;
+    if (expected_stop) {
+      LOG(INFO) << "worker " << exited_pid
+                << " stopped for the keyboard-to-pen mode transition\n";
+    } else {
+      LOG(ERROR) << "worker " << exited_pid << " exited with status "
+                 << WEXITSTATUS(status) << "\n";
+    }
   } else if (WIFSIGNALED(status)) {
     LOG(ERROR) << "worker " << exited_pid << " terminated by signal "
                << WTERMSIG(status) << "\n";
@@ -95,7 +111,7 @@ int Supervise(pid_t keyboard_pid, pid_t touchpad_pid) {
     StopWorker(keyboard_pid);
     StopWorker(touchpad_pid);
   }
-  return EXIT_FAILURE;
+  return expected_stop ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
 }  // namespace

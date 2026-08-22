@@ -43,6 +43,8 @@ grep -Fxq 'RestrictNamespaces=true' "$root/systemd/halo-keyboard.service"
 grep -Fq 'SYMLINK+="halo_keyboard"' "$root/udev/60-halo-keyboard.rules"
 grep -Fq 'ENV{SYSTEMD_WANTS}+="halo-keyboard.service"' \
 	"$root/udev/60-halo-keyboard.rules"
+grep -Fq 'error.code() == std::errc::no_such_device' "$root/src/main.cc"
+grep -Fq 'return expected_stop ? EXIT_SUCCESS : EXIT_FAILURE;' "$root/src/main.cc"
 grep -Fq 'KERNEL=="ybwmi::kbd_backlight"' \
 	"$root/udev/60-halo-keyboard-backlight.rules"
 grep -Fq 'ENV{ID_BACKLIGHT_CLAMP}="20%%"' \

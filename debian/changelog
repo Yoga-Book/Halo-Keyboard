@@ -1,3 +1,10 @@
+halo-keyboard (1.0.0-4) unstable; urgency=medium
+
+  * Treat the expected Halo surface removal in pen mode as a clean service
+    stop instead of entering a restart loop.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Sat, 22 Aug 2026 06:15:00 +0200
+
 halo-keyboard (1.0.0-3) unstable; urgency=medium
 
   * Wait for cold-boot udev events before opening the two haptic devices.
