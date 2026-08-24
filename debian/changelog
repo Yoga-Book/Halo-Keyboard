@@ -1,3 +1,10 @@
+halo-keyboard (1.0.0-5) unstable; urgency=medium
+
+  * Bound service CPU, memory, task count and restart rate while preserving
+    normal input scheduling priority.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Mon, 24 Aug 2026 23:00:00 +0200
+
 halo-keyboard (1.0.0-4) unstable; urgency=medium
 
   * Treat the expected Halo surface removal in pen mode as a clean service

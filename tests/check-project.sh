@@ -40,6 +40,10 @@ grep -Fq -- '--config-directory /etc/halo-keyboard' \
 grep -Fxq 'CapabilityBoundingSet=' "$root/systemd/halo-keyboard.service"
 grep -Fxq 'ProtectKernelTunables=true' "$root/systemd/halo-keyboard.service"
 grep -Fxq 'RestrictNamespaces=true' "$root/systemd/halo-keyboard.service"
+grep -Fxq 'CPUQuota=100%' "$root/systemd/halo-keyboard.service"
+grep -Fxq 'MemoryMax=32M' "$root/systemd/halo-keyboard.service"
+grep -Fxq 'TasksMax=16' "$root/systemd/halo-keyboard.service"
+grep -Fxq 'StartLimitBurst=5' "$root/systemd/halo-keyboard.service"
 grep -Fq 'SYMLINK+="halo_keyboard"' "$root/udev/60-halo-keyboard.rules"
 grep -Fq 'ENV{SYSTEMD_WANTS}+="halo-keyboard.service"' \
 	"$root/udev/60-halo-keyboard.rules"

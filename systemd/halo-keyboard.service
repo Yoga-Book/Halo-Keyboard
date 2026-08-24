@@ -2,6 +2,8 @@
 Description=Lenovo Yoga Book Halo keyboard handler
 Documentation=man:halo-keyboard-handler(8)
 ConditionPathExists=/dev/halo_keyboard
+StartLimitIntervalSec=30s
+StartLimitBurst=5
 
 [Service]
 Type=simple
@@ -15,6 +17,9 @@ ExecStart=/usr/sbin/halo-keyboard-handler --config-directory /etc/halo-keyboard 
 Restart=on-failure
 RestartSec=1s
 KillMode=control-group
+CPUQuota=100%
+MemoryMax=32M
+TasksMax=16
 NoNewPrivileges=true
 CapabilityBoundingSet=
 LockPersonality=true
