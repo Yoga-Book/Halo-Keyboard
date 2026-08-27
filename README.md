@@ -55,7 +55,7 @@ make source
 ## Install
 
 ```bash
-sudo apt install ../halo-keyboard_1.0.0-3_amd64.deb
+sudo apt install ../halo-keyboard_1.0.0-6_amd64.deb
 sudo reboot
 ```
 

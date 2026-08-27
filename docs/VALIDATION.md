@@ -44,7 +44,8 @@ After installation and reboot, validate:
 
 1. `halo-keyboard.service` is active in keyboard mode.
 2. Keyboard keys and the virtual touchpad work.
-3. Both haptic actuators respond.
+3. Both haptic actuators respond, including the first key press after at least
+   10 seconds without touching the Halo surface.
 4. Pen motion in Xournal++ maps up/down/left/right correctly.
 5. The display touchscreen and accessibility keyboard still accept touch.
 6. Switching between keyboard and pen mode does not rotate the display.

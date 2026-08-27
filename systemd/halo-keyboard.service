@@ -13,7 +13,7 @@ Type=simple
 # keyboard and touchpad input must still start if an unrelated udev event
 # prevents the queue from settling before the timeout.
 ExecStartPre=-/usr/bin/udevadm settle --timeout=10
-ExecStart=/usr/sbin/halo-keyboard-handler --config-directory /etc/halo-keyboard -m 1.0 -D 6
+ExecStart=/usr/sbin/halo-keyboard-handler --config-directory /etc/halo-keyboard -m 1.0 -D 12
 Restart=on-failure
 RestartSec=1s
 KillMode=control-group

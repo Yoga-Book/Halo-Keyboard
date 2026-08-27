@@ -1,3 +1,10 @@
+halo-keyboard (1.0.0-6) unstable; urgency=medium
+
+  * Increase haptic pulses to 12 ms so both actuators respond reliably to the
+    first key press after an idle period.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Fri, 28 Aug 2026 00:08:55 +0200
+
 halo-keyboard (1.0.0-5) unstable; urgency=medium
 
   * Bound service CPU, memory, task count and restart rate while preserving

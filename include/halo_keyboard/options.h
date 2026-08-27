@@ -13,7 +13,7 @@ namespace halo_keyboard {
 struct Options {
   int debug_level = 0;
   double haptic_magnitude = 1.0;
-  int haptic_duration_ms = 6;
+  int haptic_duration_ms = 12;
   std::string config_directory;
 };
 

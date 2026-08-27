@@ -31,7 +31,7 @@ for file in "${required_files[@]}"; do
 	}
 done
 
-grep -Fq 'ExecStart=/usr/sbin/halo-keyboard-handler' \
+grep -Fxq 'ExecStart=/usr/sbin/halo-keyboard-handler --config-directory /etc/halo-keyboard -m 1.0 -D 12' \
 	"$root/systemd/halo-keyboard.service"
 grep -Fxq 'ExecStartPre=-/usr/bin/udevadm settle --timeout=10' \
 	"$root/systemd/halo-keyboard.service"

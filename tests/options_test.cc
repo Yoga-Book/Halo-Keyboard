@@ -44,18 +44,18 @@ int main() {
   Expect(Parse({}, &defaults, &error) == halo_keyboard::ParseResult::kSuccess,
          "defaults parse");
   Expect(defaults.debug_level == 0 && defaults.haptic_magnitude == 1.0 &&
-             defaults.haptic_duration_ms == 6 &&
+             defaults.haptic_duration_ms == 12 &&
              defaults.config_directory.empty(),
          "defaults are stable");
 
   halo_keyboard::Options long_options;
   Expect(Parse({"--debug", "--debug", "--magnitude", "0.25",
-                "--duration-ms", "12", "--config-directory", "/tmp/halo"},
+                "--duration-ms", "20", "--config-directory", "/tmp/halo"},
                &long_options, &error) == halo_keyboard::ParseResult::kSuccess,
          "long options parse");
   Expect(long_options.debug_level == 2 &&
              long_options.haptic_magnitude == 0.25 &&
-             long_options.haptic_duration_ms == 12 &&
+             long_options.haptic_duration_ms == 20 &&
              long_options.config_directory == "/tmp/halo",
          "long option values are retained");
 
