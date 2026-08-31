@@ -8,7 +8,9 @@ Run:
 make test
 dpkg-buildpackage --build=binary --no-sign
 make source
-lintian --profile debian ../halo-keyboard_1.0.0-1_*.changes
+package_version=$(dpkg-parsechangelog -S Version)
+package_arch=$(dpkg --print-architecture)
+lintian --profile debian "../halo-keyboard_${package_version}_${package_arch}.changes"
 ```
 
 Run the strict sanitizer build:
@@ -29,8 +31,10 @@ git diff --check
 Inspect the package:
 
 ```bash
-dpkg-deb --info ../halo-keyboard_1.0.0-1_*.deb
-dpkg-deb --contents ../halo-keyboard_1.0.0-1_*.deb
+package_version=$(dpkg-parsechangelog -S Version)
+package_arch=$(dpkg --print-architecture)
+dpkg-deb --info "../halo-keyboard_${package_version}_${package_arch}.deb"
+dpkg-deb --contents "../halo-keyboard_${package_version}_${package_arch}.deb"
 ```
 
 The package must contain the handler, service, configuration, udev rule, hwdb
@@ -52,5 +56,6 @@ After installation and reboot, validate:
 7. Switching between keyboard and pen mode does not rotate the display.
 8. A suspend/resume and cold boot introduce no new input or udev errors.
 
-The dynamic Wacom mapping was physically established on a Lenovo YB1-X91L in
-portrait mode before being incorporated into the packaged libwacom database.
+The dynamic Wacom mapping was physically established on a Lenovo YB1-X91L with
+the Halo pen surface on the left and the display on the right. The opposite
+portrait direction remains a required physical acceptance check.

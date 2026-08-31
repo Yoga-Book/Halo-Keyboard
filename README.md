@@ -40,8 +40,9 @@ make test
 
 The codebase follows a conventional split: public headers are under
 `include/halo_keyboard/`, implementation files under `src/`, runtime data under
-`config/`, and integration files under `udev/` and `systemd/`. Third-party
-sources remain isolated in `third_party/` with their original attribution.
+`config/`, and integration files under `udev/`, `libwacom/`, and `systemd/`.
+Third-party sources remain isolated in `third_party/` with their original
+attribution.
 
 Build the Debian package:
 
@@ -101,9 +102,11 @@ successful validation, obsolete configuration can be archived manually.
 ## Scope
 
 Halo Keyboard owns keyboard-half input translation, haptics, and associated
-udev/hwdb integration, including the backlight of that physical keyboard.
-Kernel drivers, audio/UCM, sensors, display policy, and other Yoga Book
-platform services remain in their respective projects.
+udev, hwdb, and libwacom integration, including the backlight of that physical
+keyboard. Mutter remains responsible for display policy and for applying the
+current display transform to the mapped pen. Kernel drivers, audio/UCM,
+sensors, and other Yoga Book platform services remain in their respective
+projects.
 
 The handler validates configuration before starting two supervised workers,
 one for the virtual keyboard and one for the virtual touchpad. If either worker
