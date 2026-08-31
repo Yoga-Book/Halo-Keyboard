@@ -14,7 +14,8 @@ The project and Debian package are both named `halo-keyboard`.
 - virtual internal touchpad and keyboard devices;
 - left and right DRV2604 haptic feedback;
 - YB1-X91L Wacom `056A:0169` system-integrated tablet mapping;
-- a scoped 20% minimum when restoring the Halo keyboard backlight at boot;
+- an independent oneshot policy that restores a 20% minimum for the Halo
+  keyboard backlight at boot;
 - automatic systemd activation through udev.
 
 The Wacom metadata identifies the I2C digitizer as integrated into the system

@@ -1,9 +1,0 @@
-# SPDX-License-Identifier: GPL-2.0-or-later
-
-ACTION=="remove", GOTO="halo_keyboard_backlight_end"
-
-# Do not restore a saved zero brightness that would leave the printed Halo
-# keyboard unusable after boot. Limit the policy to the Yoga Book keyboard LED.
-SUBSYSTEM=="leds", KERNEL=="ybwmi::kbd_backlight", ENV{ID_BACKLIGHT_CLAMP}="20%%"
-
-LABEL="halo_keyboard_backlight_end"

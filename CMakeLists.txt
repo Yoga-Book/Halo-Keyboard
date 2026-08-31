@@ -88,11 +88,13 @@ install(DIRECTORY config/layouts DESTINATION "${CMAKE_INSTALL_SYSCONFDIR}/halo-k
 install(FILES config/hardware.csv config/touchpad.csv
   DESTINATION "${CMAKE_INSTALL_SYSCONFDIR}/halo-keyboard")
 install(FILES udev/60-halo-keyboard.rules DESTINATION "${UDEV_DIR}/rules.d")
-install(FILES udev/60-halo-keyboard-backlight.rules DESTINATION "${UDEV_DIR}/rules.d")
 install(FILES udev/61-halo-keyboard.hwdb DESTINATION "${UDEV_DIR}/hwdb.d")
 install(FILES libwacom/wacom-yoga-book.tablet
   DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/libwacom")
-install(FILES systemd/halo-keyboard.service DESTINATION "${SYSTEMD_SYSTEM_UNIT_DIR}")
+install(FILES systemd/halo-keyboard.service systemd/halo-keyboard-backlight.service
+  DESTINATION "${SYSTEMD_SYSTEM_UNIT_DIR}")
+install(PROGRAMS libexec/ensure-backlight-minimum
+  DESTINATION "${CMAKE_INSTALL_LIBEXECDIR}/halo-keyboard")
 install(FILES docs/halo-keyboard-handler.8 DESTINATION "${CMAKE_INSTALL_MANDIR}/man8")
 install(FILES ATTRIBUTION.md README.md
   DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/doc/halo-keyboard")
@@ -112,6 +114,10 @@ if(BUILD_TESTING)
   add_test(
     NAME input-database
     COMMAND bash "${PROJECT_SOURCE_DIR}/tests/check-input-database.sh" "${PROJECT_SOURCE_DIR}"
+  )
+  add_test(
+    NAME backlight-policy
+    COMMAND bash "${PROJECT_SOURCE_DIR}/tests/check-backlight-policy.sh" "${PROJECT_SOURCE_DIR}"
   )
   add_test(
     NAME maintainer-scripts

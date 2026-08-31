@@ -1,3 +1,10 @@
+halo-keyboard (1.0.0-8) unstable; urgency=medium
+
+  * Replace the inherited udev brightness clamp with an independently tested
+    boot-time policy implemented by the Halo Keyboard package.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Mon, 31 Aug 2026 23:30:00 +0200
+
 halo-keyboard (1.0.0-7) unstable; urgency=medium
 
   * Map the YB1-X91L Wacom digitizer through Mutter so pen coordinates follow

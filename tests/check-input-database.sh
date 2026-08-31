@@ -4,7 +4,8 @@
 set -Eeuo pipefail
 
 root=${1:?project root is required}
-temporary_root=$(mktemp -d /tmp/halo-keyboard-hwdb.XXXXXX)
+temporary_base=${TMPDIR:-/var/tmp}
+temporary_root=$(mktemp -d "$temporary_base/halo-keyboard-hwdb.XXXXXX")
 
 cleanup() {
 	rm -rf -- "$temporary_root"
@@ -16,8 +17,6 @@ install -D -m 0644 "$root/udev/61-halo-keyboard.hwdb" \
 
 systemd-hwdb --root="$temporary_root" --strict update
 udevadm verify --no-style --no-summary "$root/udev/60-halo-keyboard.rules"
-udevadm verify --no-style --no-summary \
-	"$root/udev/60-halo-keyboard-backlight.rules"
 
 x91l_match=$(systemd-hwdb --root="$temporary_root" query \
 	'evdev:name:Wacom HID 169 Pen:dmi:bvnLENOVO:pnLenovoYB1-X91L:' || true)

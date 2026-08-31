@@ -32,4 +32,4 @@ Description: Lenovo Yoga Book Halo keyboard and pen input integration
  .
  The package also installs narrowly matched udev, hardware-database and
  libwacom entries, including dynamic display mapping for the YB1-X91L pen and
- a scoped minimum brightness clamp for the Halo keyboard backlight.
+ an independent boot-time brightness policy for the Halo keyboard backlight.
