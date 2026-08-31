@@ -90,6 +90,8 @@ install(FILES config/hardware.csv config/touchpad.csv
 install(FILES udev/60-halo-keyboard.rules DESTINATION "${UDEV_DIR}/rules.d")
 install(FILES udev/60-halo-keyboard-backlight.rules DESTINATION "${UDEV_DIR}/rules.d")
 install(FILES udev/61-halo-keyboard.hwdb DESTINATION "${UDEV_DIR}/hwdb.d")
+install(FILES libwacom/wacom-yoga-book.tablet
+  DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/libwacom")
 install(FILES systemd/halo-keyboard.service DESTINATION "${SYSTEMD_SYSTEM_UNIT_DIR}")
 install(FILES docs/halo-keyboard-handler.8 DESTINATION "${CMAKE_INSTALL_MANDIR}/man8")
 install(FILES ATTRIBUTION.md README.md

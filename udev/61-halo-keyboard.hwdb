@@ -17,9 +17,3 @@ evdev:name:Halo Keyboard Touchpad:dmi:bvnLENOVO*pnLenovoYB1-X9*
 
 evdev:name:Halo Keyboard Touchpad:dmi:*pnCHERRYVIEWD1PLATFORM*:pvrYETI-11*:*
  ID_INPUT_TOUCHPAD_INTEGRATION=internal
-
-# The Wacom digitizer is mounted in portrait orientation inside the landscape
-# YB1-X91L keyboard half. Rotate only this tablet interface. Do not match the
-# HiDeep display touchscreen (2ABB:8102) or the Goodix Halo surface.
-evdev:name:Wacom HID 169 Pen:dmi:bvnLENOVO*pnLenovoYB1-X91L*
- LIBINPUT_CALIBRATION_MATRIX=0 1 0 -1 0 1

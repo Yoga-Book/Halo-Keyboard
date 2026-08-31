@@ -13,13 +13,16 @@ The project and Debian package are both named `halo-keyboard`.
 - PC-104 and PC-105 keyboard layouts;
 - virtual internal touchpad and keyboard devices;
 - left and right DRV2604 haptic feedback;
-- YB1-X91L Wacom `056A:0169` pen orientation calibration;
+- YB1-X91L Wacom `056A:0169` system-integrated tablet mapping;
 - a scoped 20% minimum when restoring the Halo keyboard backlight at boot;
 - automatic systemd activation through udev.
 
-The Wacom calibration is deliberately restricted to the YB1-X91L and the
-`Wacom HID 169 Pen` tablet interface. It does not alter the HiDeep display
-touchscreen or the Goodix Halo surface.
+The Wacom metadata identifies the I2C digitizer as integrated into the system
+so Mutter maps it to the built-in display and follows landscape and portrait
+rotation. The libinput matrix remains neutral; the former fixed 90-degree
+calibration would otherwise rotate the pen a second time in portrait mode.
+The definition does not alter the HiDeep display touchscreen or the Goodix
+Halo surface.
 
 ## Build
 
@@ -55,13 +58,14 @@ make source
 ## Install
 
 ```bash
-sudo apt install ../halo-keyboard_1.0.0-6_amd64.deb
+sudo apt install ../halo-keyboard_1.0.0-7_amd64.deb
 sudo reboot
 ```
 
-The reboot lets udev, libinput, and the desktop session reopen every input
-device with the packaged hardware database. Test keyboard keys, touchpad,
-haptics, pen directions, display touch, and pen/keyboard mode switching.
+The reboot lets udev, libinput, libwacom, and the desktop session reopen every
+input device with the packaged databases. Test keyboard keys, touchpad,
+haptics, pen directions in landscape and portrait, display touch, and
+pen/keyboard mode switching.
 
 ## Configuration
 

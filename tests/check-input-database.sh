@@ -20,8 +20,11 @@ udevadm verify --no-style --no-summary \
 	"$root/udev/60-halo-keyboard-backlight.rules"
 
 x91l_match=$(systemd-hwdb --root="$temporary_root" query \
-	'evdev:name:Wacom HID 169 Pen:dmi:bvnLENOVO:pnLenovoYB1-X91L:')
-grep -Fq 'LIBINPUT_CALIBRATION_MATRIX=0 1 0 -1 0 1' <<<"$x91l_match"
+	'evdev:name:Wacom HID 169 Pen:dmi:bvnLENOVO:pnLenovoYB1-X91L:' || true)
+if grep -Fq 'LIBINPUT_CALIBRATION_MATRIX=' <<<"$x91l_match"; then
+	echo 'Wacom calibration must remain neutral for dynamic display mapping' >&2
+	exit 1
+fi
 
 x90_match=$(systemd-hwdb --root="$temporary_root" query \
 	'evdev:name:Wacom HID 169 Pen:dmi:bvnLENOVO:pnLenovoYB1-X90L:' || true)
@@ -36,5 +39,13 @@ if grep -Fq 'LIBINPUT_CALIBRATION_MATRIX=' <<<"$display_match"; then
 	echo 'Wacom calibration unexpectedly matches the display touchscreen' >&2
 	exit 1
 fi
+
+tablet="$root/libwacom/wacom-yoga-book.tablet"
+grep -Fxq 'Name=Wacom HID 169' "$tablet"
+grep -Fxq 'ModelName=WCOM0019' "$tablet"
+grep -Fxq 'DeviceMatch=i2c|056a|0169' "$tablet"
+grep -Fxq 'IntegratedIn=System' "$tablet"
+grep -Fxq 'Stylus=true' "$tablet"
+grep -Fxq 'Touch=false' "$tablet"
 
 echo 'input database: PASS'

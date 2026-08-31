@@ -9,6 +9,7 @@ required_files=(
 	udev/60-halo-keyboard-backlight.rules
 	udev/60-halo-keyboard.rules
 	udev/61-halo-keyboard.hwdb
+	libwacom/wacom-yoga-book.tablet
 	ATTRIBUTION.md
 	LICENSE
 	README.md
@@ -55,6 +56,7 @@ grep -Fq 'ENV{ID_BACKLIGHT_CLAMP}="20%%"' \
 	"$root/udev/60-halo-keyboard-backlight.rules"
 grep -Fq 'Package: halo-keyboard' "$root/debian/control"
 grep -Eq '^ udev,$' "$root/debian/control"
+grep -Eq '^ libwacom-common,$' "$root/debian/control"
 grep -Eq '^ systemd,$' "$root/debian/control"
 grep -Fq 'Provides: touch-keyboard' "$root/debian/control"
 grep -Fq 'Conflicts: touch-keyboard' "$root/debian/control"

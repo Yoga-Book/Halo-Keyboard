@@ -17,6 +17,7 @@ Vcs-Git: https://github.com/Yoga-Book/Halo-Keyboard.git
 Package: halo-keyboard
 Architecture: any
 Depends:
+ libwacom-common,
  systemd,
  udev,
  ${misc:Depends},
@@ -29,6 +30,6 @@ Description: Lenovo Yoga Book Halo keyboard and pen input integration
  virtual keyboard and internal touchpad devices, with optional DRV2604 haptic
  feedback.
  .
- The package also installs narrowly matched udev and hardware-database entries,
- including the YB1-X91L Wacom pen orientation calibration and a scoped minimum
- brightness clamp for the Halo keyboard backlight.
+ The package also installs narrowly matched udev, hardware-database and
+ libwacom entries, including dynamic display mapping for the YB1-X91L pen and
+ a scoped minimum brightness clamp for the Halo keyboard backlight.

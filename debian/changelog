@@ -1,3 +1,10 @@
+halo-keyboard (1.0.0-7) unstable; urgency=medium
+
+  * Map the YB1-X91L Wacom digitizer through Mutter so pen coordinates follow
+    landscape and portrait display rotations.
+
+ -- Yoga Book maintainers <Yoga-Book@users.noreply.github.com>  Mon, 31 Aug 2026 01:59:19 +0200
+
 halo-keyboard (1.0.0-6) unstable; urgency=medium
 
   * Increase haptic pulses to 12 ms so both actuators respond reliably to the
