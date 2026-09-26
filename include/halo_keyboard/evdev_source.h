@@ -10,6 +10,7 @@
 #include <linux/input.h>
 #include <string>
 #include <sys/select.h>
+#include <system_error>
 
 #include "halo_keyboard/syscall_handler.h"
 
@@ -18,6 +19,8 @@ namespace halo_keyboard {
 // Timeout value to use when you want the EvdevSource to block indefinitely
 // when calling GetNextEvent().
 constexpr int kNoTimeout = -1;
+
+bool IsExpectedSourceDeviceError(const std::error_code& error);
 
 class EvdevSource {
  /* A class that uses an Evdev device as an event source

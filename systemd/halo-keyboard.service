@@ -1,6 +1,8 @@
 [Unit]
 Description=Lenovo Yoga Book Halo keyboard handler
 Documentation=man:halo-keyboard-handler(8)
+BindsTo=dev-halo_keyboard.device
+After=dev-halo_keyboard.device
 ConditionPathExists=/dev/halo_keyboard
 StartLimitIntervalSec=30s
 StartLimitBurst=5

@@ -31,10 +31,16 @@ bool EvdevSource::OpenSourceDevice(std::string const &source_device_path) {
   source_fd_ = syscall_handler_->open(source_device_path.c_str(),
                                       O_RDONLY | O_CLOEXEC);
   if (source_fd_ < 0) {
-    PLOG(ERROR) << "Failed to open() source device " << source_device_path << ". (" << source_fd_ << ")\n";
-    return false;
+    const int open_error = errno;
+    throw std::system_error(open_error, std::generic_category(),
+                            "open source device " + source_device_path);
   }
   return true;
+}
+
+bool IsExpectedSourceDeviceError(const std::error_code& error) {
+  return error == std::errc::no_such_file_or_directory ||
+         error == std::errc::no_such_device;
 }
 
 bool EvdevSource::GetNextEvent(int timeout_ms, struct input_event *ev) const {

@@ -100,7 +100,7 @@ install(FILES ATTRIBUTION.md README.md
   DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/doc/halo-keyboard")
 
 if(BUILD_TESTING)
-  foreach(test_name IN ITEMS hardware_config options state_machine uinput_device)
+  foreach(test_name IN ITEMS evdev_source hardware_config options state_machine uinput_device)
     add_executable(${test_name}-test tests/${test_name}_test.cc)
     target_link_libraries(${test_name}-test PRIVATE halo-keyboard-core)
     halo_keyboard_target_defaults(${test_name}-test)

@@ -47,10 +47,15 @@ grep -Fxq 'CPUQuota=100%' "$root/systemd/halo-keyboard.service"
 grep -Fxq 'MemoryMax=32M' "$root/systemd/halo-keyboard.service"
 grep -Fxq 'TasksMax=16' "$root/systemd/halo-keyboard.service"
 grep -Fxq 'StartLimitBurst=5' "$root/systemd/halo-keyboard.service"
+grep -Fxq 'BindsTo=dev-halo_keyboard.device' \
+	"$root/systemd/halo-keyboard.service"
+grep -Fxq 'After=dev-halo_keyboard.device' \
+	"$root/systemd/halo-keyboard.service"
+grep -Fxq 'Restart=on-failure' "$root/systemd/halo-keyboard.service"
 grep -Fq 'SYMLINK+="halo_keyboard"' "$root/udev/60-halo-keyboard.rules"
 grep -Fq 'ENV{SYSTEMD_WANTS}+="halo-keyboard.service"' \
 	"$root/udev/60-halo-keyboard.rules"
-grep -Fq 'error.code() == std::errc::no_such_device' "$root/src/main.cc"
+grep -Fq 'IsExpectedSourceDeviceError(error.code())' "$root/src/main.cc"
 grep -Fq 'return expected_stop ? EXIT_SUCCESS : EXIT_FAILURE;' "$root/src/main.cc"
 grep -Fxq 'ExecStart=/usr/libexec/halo-keyboard/ensure-backlight-minimum' \
 	"$root/systemd/halo-keyboard-backlight.service"

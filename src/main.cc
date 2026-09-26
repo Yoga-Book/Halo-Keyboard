@@ -43,7 +43,7 @@ pid_t SpawnWorker(std::string_view name, const std::function<void()>& worker) {
       worker();
       LOG(ERROR) << name << " worker returned unexpectedly\n";
     } catch (const std::system_error& error) {
-      if (error.code() == std::errc::no_such_device) {
+      if (halo_keyboard::IsExpectedSourceDeviceError(error.code())) {
         LOG(INFO) << name
                   << " worker stopped because the Halo surface entered pen mode\n";
         std::cerr.flush();
